@@ -537,6 +537,15 @@ public abstract class GSYVideoView extends GSYTextureRenderView implements GSYMe
                 e.printStackTrace();
             }
         }
+        try {
+            //如果当前状态为正在播放，但播放器却没有正在播放，则主动调用一次
+            if (mCurrentState == CURRENT_STATE_PLAYING
+                    && getGSYVideoManager() != null && !getGSYVideoManager().isPlaying()) {
+                getGSYVideoManager().start();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
